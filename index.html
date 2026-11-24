@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6eddd"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css">
+<title>豆豆的家</title>
+</head>
+<body>
+<header class="top"><span class="paw">🐾</span><div><small>DOUDOU'S LITTLE WORLD</small><h1>豆豆的家</h1></div><button class="round" aria-label="提醒">♧</button><button class="round" aria-label="设置">⚙</button></header>
+<main>
+<section class="room-wrap"><div class="room-label">我的小房间 <span>温馨卧室⌄</span></div>
+<div class="room" id="room"><div class="window"><i></i><i></i><b></b></div><div class="plant">🌿</div><div class="bed"><span>床</span><div class="pillow"></div><div class="blanket"></div></div><div class="nightstand"><div class="lamp"></div><div class="drawer"></div></div><div class="rug"></div><div class="dog" id="dog" role="img" aria-label="豆豆">🐶<span class="bandana">♥</span></div><div class="toy">🦴</div><div class="ball">🔴</div></div>
+</section>
+<section class="greeting"><h2 id="greeting">早上好！</h2><p id="mood">豆豆开心地摇起了尾巴！汪汪！</p></section>
+<section class="cards"><article class="info"><div class="card-title">⏰ 明天起床</div><strong id="alarmText">07:00</strong><small id="repeatText">工作日 · 闹钟已开启</small><label class="switch"><input id="alarmOn" type="checkbox" checked><span></span></label></article><article class="info"><div class="card-title">♡ 豆豆状态</div><strong id="moodShort">心情不错</strong><small>等待你来陪它</small><span class="mini-dog">🐾</span></article></section>
+<section class="actions"><button class="primary" data-tab="decorate">🪑 布置房间</button><button class="secondary" data-tab="alarm">⏰ 设置闹钟</button></section>
+<section class="play"><h3>和豆豆玩一会儿</h3><p>豆豆等你来陪它玩耍～</p><div class="chips"><button data-play="摸摸豆豆">♡ 摸摸豆豆</button><button data-play="陪玩球">⚽ 陪玩球</button><button data-play="喂零食">🦴 喂零食</button><button data-play="陪睡觉">☾ 陪睡觉</button></div></section>
+</main>
+<nav class="nav"><button class="active" data-tab="home">⌂<small>我的家</small></button><button data-tab="decorate">🪑<small>布置</small></button><button data-tab="alarm">◷<small>闹钟</small></button><button data-tab="dog">🐾<small>豆豆</small></button></nav>
+<dialog id="panel"><form method="dialog"><button class="close">✕</button></form><div id="panelBody"></div></dialog>
+<script src="./app.js"></script>
+</body></html>
