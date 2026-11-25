@@ -1,1 +1,20 @@
-{"name":"豆豆的家","short_name":"豆豆","start_url":"./","display":"standalone","background_color":"#f6eddd","theme_color":"#f6eddd","lang":"zh-CN","icons":[]}
+{
+  "id": "./",
+  "name": "豆豆的家",
+  "short_name": "豆豆",
+  "description": "豆豆的家：温暖的狗狗陪伴与闹钟体验",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6eddd",
+  "theme_color": "#f6eddd",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
