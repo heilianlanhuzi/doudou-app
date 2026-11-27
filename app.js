@@ -41,6 +41,7 @@ function closePanel() {
 function setMood(message, short = "开心") {
   $("#mood").textContent = message;
   $("#moodShort").textContent = short;
+  const feedback = $("#tabFeedback"); if (feedback) feedback.textContent = message;
 }
 
 function openAlarm() {
@@ -74,16 +75,32 @@ function openDog() {
   `);
 }
 
+const main = document.querySelector("main");
+const homeSections = Array.from(main.children);
+const tabPage = document.createElement("section");
+tabPage.className = "info";
+tabPage.style.cssText = "margin:16px 0;min-height:240px;padding:20px";
+tabPage.hidden = true;
+main.append(tabPage);
+const hiddenStyle = document.createElement("style"); hiddenStyle.textContent = "main [hidden]{display:none!important}"; document.head.append(hiddenStyle);
+let currentTab = "home";
+function navigate(tab) {
+  currentTab = tab;
+  document.querySelectorAll(".nav button").forEach(item => {
+    item.classList.toggle("active", item.dataset.tab === tab);
+    if(item.dataset.tab === tab) item.setAttribute("aria-current","page");
+    else item.removeAttribute("aria-current");
+  });
+  homeSections.forEach((section,index) => section.hidden = tab !== "home" && !(tab === "decorate" && index === 0));
+  tabPage.hidden = tab === "home";
+  if(tab === "alarm") tabPage.innerHTML = `<h2>闹钟</h2><p>明天起床</p><strong>${state.time}</strong><p><label>起床时间 <input id="time" type="time" value="${state.time}"></label></p><p><label><input type="checkbox" id="pageAlarmOn" ${state.on?"checked":""}> 启用闹钟</label></p><button id="saveAlarm" class="dialog-primary">保存设置</button><p class="hint">目前仅保存设置，尚不支持实际响铃。</p><p id="tabFeedback" role="status"></p>`;
+  if(tab === "decorate") tabPage.innerHTML = '<h2>布置房间</h2><p>当前房间：温馨卧室</p><button data-room="温馨卧室" aria-pressed="true">温馨卧室</button><p>家具选择与拖拽尚未实现。</p><p id="tabFeedback" role="status"></p>';
+  if(tab === "dog") tabPage.innerHTML = '<h2>豆豆</h2><p id="tabFeedback" role="status">豆豆正在等你陪它玩。</p><div class="chips"><button data-play="摸摸豆豆">♡ 摸摸豆豆</button><button data-play="陪玩球">⚽ 陪玩球</button><button data-play="喂零食">🦴 喂零食</button><button data-play="陪睡觉">☾ 陪睡觉</button></div>';
+  window.scrollTo(0,0);
+}
 document.querySelectorAll("[data-tab]").forEach((button) => {
   button.addEventListener("click", () => {
-    document.querySelectorAll(".nav button").forEach((item) =>
-      item.classList.toggle("active", item === button)
-    );
-    const tab = button.dataset.tab;
-    if (tab === "alarm") openAlarm();
-    if (tab === "decorate") openDecorate();
-    if (tab === "dog") openDog();
-    if (tab === "home") closePanel();
+    navigate(button.dataset.tab);
   });
 });
 
@@ -98,9 +115,11 @@ document.addEventListener("click", (event) => {
       return;
     }
     state.time = input.value;
+    const toggle = $("#pageAlarmOn"); if(toggle) { state.on = toggle.checked; storage.set("doudouOn", String(state.on)); }
     storage.set("doudouTime", state.time);
     refresh();
     closePanel();
+    if(currentTab === "alarm") navigate("alarm");
     setMood("豆豆记住了你的起床时间。", "准备好了");
   }
 
@@ -108,6 +127,7 @@ document.addEventListener("click", (event) => {
     state.room = target.dataset.room;
     storage.set("doudouRoom", state.room);
     $(".room-label span").textContent = state.room + "⌄";
+    if($("#tabFeedback")) $("#tabFeedback").textContent = "已选择温馨卧室";
     closePanel();
   }
 
