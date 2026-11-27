@@ -1,4 +1,4 @@
-const CACHE = "doudou-static-v2";
+const CACHE = "doudou-static-v3";
 const ASSETS = [
   "./",
   "./index.html",
